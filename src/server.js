@@ -1,11 +1,14 @@
 import express from 'express'
 import dotenv from 'dotenv/config'
-import date from "./date"
-import getURL from "./getURL"
-import viewEngine from './viewEngine'
+import date from "../../date"
+import getURL from "../../getURL"
+import viewEngine from './configs/viewEngine'
+import initWebRouter from './route/webRoute'
 const app = express()
 const port = process.env.PORT
 viewEngine(app)
+dotenv.config()
+initWebRouter(app)
 app.get('/', (req,res) =>{
     res.send('Hello World!')
 })
