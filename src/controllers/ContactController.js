@@ -1,5 +1,6 @@
-import express from "express"
-const  contactPage = (req, res) => {
-    return res.render("contact")
+import express from "express";
+const getHomePage = (req, res) => {
+    return res.render("main", {data: {title: 'contact', page: 'contact'}})
 }
-export default contactPage
+
+export default getHomePage;

@@ -1,36 +1,17 @@
 import express from 'express'
 import dotenv from 'dotenv/config'
-import date from "../../date"
-import getURL from "../../getURL"
 import viewEngine from './configs/viewEngine'
-import initWebRouter from './route/webRoute'
+import initWebRoute from './route/webRoute'
+import bodyParser from "body-parser"
+import path from 'path'
 const app = express()
-const port = process.env.PORT
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')))
 viewEngine(app)
-dotenv.config()
-initWebRouter(app)
-app.get('/', (req,res) =>{
-    res.send('Hello World!')
-})
-app.get('/about', (req,res) =>{
-    res.send('Hello World!. Page about')
-})
-app.get('/date', (req,res) =>{
-    res.send(date() + "<br>")
-})
-app.get('/geturl', (req,res) =>{
-    
-    res.send(getURL.getPath(req) + '<br>' + getURL.getParamsURL(req));
-})
-app.get('/ejs', (req,res) =>{
-    res.render("test")
-})
-app.get('/', (req,res) =>{
-    res.render("home")
-})
-app.get('/about', (req,res) =>{
-    res.render("about")
-})
-app.listen(port, () => {
-    console.log('Example app listening on port ${port}')
+initWebRoute(app)
+const port = process.env.PORT
+
+app.listen(port, () =>{
+    console.log(`Example app listening on port ${port}`)
 })

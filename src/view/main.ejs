@@ -1,7 +1,21 @@
-<%- include('header') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('head'); %>
+</head>
+<body>
 
-<main class="container">
-    
-</main>
+<header>
+  <%- include('header'); %>
+</header>
+<div>
+  <% if(data.page){ %>
+    <%- include(data.page)%>
+  <%} %>
+</div>
+<footer>
+  <%- include('footer'); %>
+</footer>
 
-<%- include('footer') %>
+</body>
+</html>

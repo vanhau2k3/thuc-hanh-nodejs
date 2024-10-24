@@ -1,7 +1,7 @@
 import http from 'http'
 import date from "./date"
 import getURL from "./getURL"
-//import dotenv from "dotenv"
+import dotenv from "dotenv"
 http.createServer(function (req, res){
     res.writeHead(200, {'Content-Type':
         'text/html;charset=utf-8'    });
