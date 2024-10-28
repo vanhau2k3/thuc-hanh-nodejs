@@ -1,25 +1,31 @@
-Detail Username: <%=data.row.username %>
-<table class="table table-striped table-hover">
-    <thead>
-      <tr>
-        <th scope="col">Username</th>
-        <th scope="col">Full name</th>
-        <th scope="col">Address</th>
-      </tr>
-    </thead>
-    <tbody>
-            <tr>
-              <td>
-                  <%=data.row.username %>
-              </td>
-              <td>
-                  <%=data.row.fullname %>
-              </td>
-              <td>
-                  <%=data.row.address %>
-              </td>
-              
-            </tr>   
-        
-    </tbody>
-</table>
+<div class="container">
+
+  <h2 class="text-center mt-3">THÔNG TIN TÀI KHOẢN</h2>
+  <div class="modal-body">
+      <input type="hidden" name="_method" value="put">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" name="username" value="<%= data.row.username %>" id="username" disabled placeholder="Nhập username" required>
+      </div>
+      <div class="form-group">
+        <label for="fullname">Tên tài khoản</label>
+        <input type="text" class="form-control" name="fullname" disabled id="fullname" value="<%= data.row.fullname %>" placeholder="Nhập tên tài khoản" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Mật khẩu</label>
+        <input type="password" class="form-control" name="password" disabled value="<%= data.row.password %>" id="password" placeholder="Nhập mật khẩu" required>
+      </div>
+      <div class="form-group">
+        <label for="address">Địa chỉ</label>
+        <input type="text" class="form-control" name="address" disabled value="<%= data.row.address %>" id="address" placeholder="Nhập địa chỉ" required>
+      </div>
+      <div class="form-group">
+        <label for="address">Giới tính</label>
+        <input type="text" class="form-control" name="address" disabled value="<%= data.row.sex %>" id="address" placeholder="Nhập địa chỉ" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" name="email" disabled value="<%= data.row.email %>" id="email" placeholder="Nhập email" required>
+      </div>
+  </div>
+</div>

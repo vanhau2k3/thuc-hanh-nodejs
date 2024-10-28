@@ -1,5 +1,7 @@
-import express from "express"
-const aboutPage = (req, res) => {
-    return res.render("main", {data: {title: 'about', content:'about'}})
+import express from "express";
+
+const getAboutPage = (req, res) => {
+    return res.render("main", {data: {title: 'about', page: 'about'}});
 }
-export default aboutPage
+
+export default getAboutPage;

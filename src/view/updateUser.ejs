@@ -1,0 +1,52 @@
+<div class="container">
+
+    <h2 class="text-center mt-3">CẬP NHẬT TÀI KHOẢN</h2>
+    <div class="modal-body">
+      <form method="post" action="/update-user/<%= data.row.id %>">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" name="username" value="<%= data.row.username %>" id="username" disabled placeholder="Nhập username" required>
+        </div>
+        <div class="form-group">
+          <label for="fullname">Tên tài khoản</label>
+          <input type="text" class="form-control" name="fullname" id="fullname" value="<%= data.row.fullname %>" placeholder="Nhập tên tài khoản" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Mật khẩu</label>
+          <input type="password" class="form-control" name="password" value="<%= data.row.password %>" id="password" placeholder="Nhập mật khẩu" required>
+        </div>
+        <div class="form-group">
+          <label for="address">Địa chỉ</label>
+          <input type="text" class="form-control" name="address" value="<%= data.row.address %>" id="address" placeholder="Nhập địa chỉ" required>
+        </div>
+        <div class="form-group">
+          <label for="sex">Giới tính</label>
+          <div class="form-check">
+            <input class="form-check-input" 
+                   value="Nam" 
+                   type="radio" 
+                   name="sex" 
+                   id="flexRadioDefault1" 
+                   <% if(data.row.sex === 'Nam'){ %> checked <% } %>>
+            <label class="form-check-label" for="flexRadioDefault1">Nam</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" 
+                   value="Nữ" 
+                   type="radio" 
+                   name="sex" 
+                   id="flexRadioDefault2" 
+                   <% if(data.row.sex !== 'Nam'){ %> checked <% } %>>
+            <label class="form-check-label" for="flexRadioDefault2">Nữ</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" name="email" value="<%= data.row.email %>" id="email" placeholder="Nhập email" required>
+        </div>
+        <div class="modal-footer" style="border: none;">
+          <button type="submit" class="btn btn-success">Cập nhật</button>
+        </div>
+      </form>
+    </div>
+</div>
