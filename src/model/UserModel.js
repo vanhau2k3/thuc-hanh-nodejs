@@ -1,4 +1,4 @@
-import pool from "../configs/connectDB";
+import pool from "../configs/connectDB"
 
 const getAllUser = async () => {
   const [rows, fields] = await pool.execute(
@@ -16,7 +16,7 @@ const createUser = async ( username, password, fullname, address, email, sex) =>
 };
 
 const getDetailUser = async (userId) => {
-  const [result] = await pool.execute("SELECT * FROM user WHERE id = ?", [
+  const [result] = await pool.execute("SELECT username, fullname, address, email, sex FROM user WHERE id = ?", [
     userId,
   ]);
   return result;

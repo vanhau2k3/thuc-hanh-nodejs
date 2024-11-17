@@ -1,13 +1,44 @@
 import express from 'express'
 import userModel from '../model/UserModel'
 import bcrypt from 'bcryptjs'
+import JwtMiddleware from '../jsonwebtoken' 
 
-const signIn = (req, res) => {
+const signIn = async (req, res) => {
   try {
-    const { username, password } = req.body
+    const { username, pass } = req.body
+    if (!username || !pass){
+      return res.status(200).json({
+        message: 'Vul lòng nhập thông tin',
+      })
+    }
+
+      const rows = await userModel.checkUsername(username)
+      if (rows.length === 0) {
+        return res.status(200).json({
+            message: 'Người dùng không tồn tại',
+          })
+    }
+    const user = rows[0]
+    const hashedPassword = await bcrypt.compare(pass, user.password)
+
+    if (!hashedPassword) {
+        if (rows.length > 0) {
+            return res.status(200).json({
+                message: 'Mật khẩu không chính xác!',
+              }).redirect('/login')
+        }
+    }
+    const token = await JwtMiddleware.createJWT(username, user.role, user.id)
+    if (token) {
+      res.cookie("jwt", token, { path: "/", httpOnly: true })
+    }
+  
+
+   
     return res.status(200).json({
       message: 'Success',
-      data: req.body
+      username,
+      token,
     })
   } catch (error) {
     console.log(error);
@@ -28,8 +59,10 @@ const getAllUsers = async (req, res) => {
 
 const detailUser = async (req, res) => {
   try {
-    const id = req.params.id;
-    let userData = await userModel.getDetailUser(id)
+    const token = req.cookies.jwt
+    const user = await JwtMiddleware.verifyToken(token)
+    
+    let userData = await userModel.getDetailUser(user.id)
     return res.status(200).json({
       message: 'Success',
       data: userData
@@ -101,20 +134,12 @@ const updateUser = async (req, res) => {
 }
 
 const logout = async (req, res) => {
-  try {
-    req.session.destroy(error => {
-      if (error) {
-        return res.status(500).json({
-          message: 'Có lỗi xảy ra khi đăng xuất.'
-        });
-      }
-      return res.status(200).json({
-        message: 'Success',
-      })
-    });
-  } catch (error) {
-    console.error(error)
-  }
+  res.clearCookie('jwt', { path: '/', httpOnly: true })
+ return  res.status(200).json({
+  err: 1,
+  message: "ok",
+  data: {} 
+ })
 }
 
 export default { signIn, addUser, detailUser, deleteUser, updateUser, getAllUsers, logout }
